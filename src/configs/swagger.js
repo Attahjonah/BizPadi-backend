@@ -19,6 +19,10 @@ const options = {
         url: `http://localhost:${process.env.PORT || 8080}`,
         description: 'Development server',
       },
+      {
+        url: `https://bizpadi-backend.onrender.com`,
+        description: 'Production server'
+      }
     ],
     components: {
       securitySchemes: {
