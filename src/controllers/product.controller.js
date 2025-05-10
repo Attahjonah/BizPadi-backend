@@ -18,10 +18,10 @@ exports.createProduct = async (req, res) => {
       image_url,
       category
     } = req.body;
-    if(!name || !description || !cost_price || !quantity || !image_url || !category) {
+    if(!name || !cost_price || !quantity ) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required',
+        message: 'name, cost_price, and quantity are required',
       });
     }
 
@@ -87,9 +87,9 @@ exports.getAllProducts = async (req, res) => {
           name: {
             [Op.iLike]: `%${search}%`,
           },
-          user_id: user_id,
+          
         }
-      : {};
+      : {user_id: user_id,};
 
     const { rows: products, count: totalItems } = await Product.findAndCountAll({
       where: whereClause,
