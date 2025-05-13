@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const parser = require('../utils/multer');
+const { parser } = require('../configs/cloudinary');
+const { uploadImage } = require('../controllers/upload.controller')
 
 /**
  * @swagger
@@ -36,16 +37,6 @@ const parser = require('../utils/multer');
  *         description: No file uploaded
  */
 
-router.post("/", parser.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ success: false, message: 'No file uploaded' });
-  }
-
-  return res.status(200).json({
-    success: true,
-    message: 'Image uploaded successfully',
-    imageUrl: req.file.path, // Cloudinary URL
-  });
-});
+router.post("/", parser.single('image'), uploadImage);
 
 module.exports = router;
